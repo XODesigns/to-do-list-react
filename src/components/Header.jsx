@@ -8,6 +8,7 @@ export default function Header() {
   const [inputText, setInputText] = useState("");
   const [items, setItems] = useState([]);
 
+
   function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
@@ -21,6 +22,7 @@ export default function Header() {
       setInputText("");
     }
   }
+
 
   return (
     <div className="todoContainer">
@@ -36,7 +38,7 @@ export default function Header() {
 
       <ul className="list-items-list">
         {items.map((todoItem) => (
-          <TodoItems key={uuidv4()} todos={todoItem} />
+          <TodoItems  key={uuidv4()}  todos={todoItem} />
         ))}
                        <Navigation />
       </ul>
