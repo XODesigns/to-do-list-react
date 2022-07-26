@@ -40,7 +40,7 @@ export default function Header() {
         {items.map((todoItem) => (
           <TodoItems  key={uuidv4()}  todos={todoItem} />
         ))}
-                       <Navigation />
+         <Navigation itemsLeft={items.length} />
       </ul>
 
     </div>
