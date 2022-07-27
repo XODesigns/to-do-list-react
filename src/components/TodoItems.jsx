@@ -1,25 +1,13 @@
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
+import Checkbox from './Checkbox'
+
 
 export default function TodoItems(props) {
-
-  const [isChecked, setChecked] = useState(false)
-   const checkedRef = useRef()
-
-    function handleChecked(){
-    setChecked(!isChecked)
-  }
-
-  let className = ""
-    if(isChecked){
-      className = 'completed'
-
-      console.log(isChecked)
-    }
-
+  const ref = useRef()
 
   return (
-    <li className={className}>
-    <input type="checkbox" ref={checkedRef} onChange={handleChecked}  value={props.checked} />
+    <li>
+    <Checkbox ref={ref} />
         {props.todos}
     </li>
   )
