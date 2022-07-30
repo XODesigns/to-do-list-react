@@ -1,20 +1,20 @@
 import {useState, forwardRef} from 'react'
 
- const Checkbox = forwardRef(({}, refCheck) => {
+ const Checkbox = forwardRef(({toggleTodo}, refCheck) => {
 
     
   const [isChecked, setChecked] = useState(false)
   //  const inputRef = useRef(null)
 
-    function handleChecked(){
-    setChecked(!isChecked)
+    function handleChecked(e){
+    setChecked(e.target.checked)
   }
 
-  console.log(isChecked)
+
 
   return (
     <>
-     <input type="checkbox" ref={refCheck} onChange={handleChecked} value={isChecked} />
+     <input type="checkbox" ref={refCheck} onChange={handleChecked} checked={isChecked} />
     </>
   )
 })

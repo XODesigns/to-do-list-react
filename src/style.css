@@ -72,20 +72,20 @@ input[type="text"]{
 
 .list-items-list li{
         background-color: hsl(235, 24%, 19%);
-        padding: 3.5% 5%;
+        padding: 3.5% 9.5%;
         list-style: none;
         border-top: 1px solid hsl(237, 14%, 26%);
 }
 
 input[type="checkbox"]{
-  position: relative;
-  margin:0 12px;
+  position: absolute;
+  margin:0 1rem;
   appearance: none;
   border-radius: 50%;
   border: 1px solid hsl(237, 14%, 26%);
   height: 1.2rem;
   width: 1.2rem;
-          transform: translateY(0.3rem);
+          transform: translateY(1.2rem);
 }
 input[type="checkbox"]:checked{
   background-image:url("./images/icon-check.svg"), linear-gradient( hsl(192, 100%, 67%),
