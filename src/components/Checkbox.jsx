@@ -14,7 +14,7 @@ import {useState, forwardRef} from 'react'
 
   return (
     <>
-     <input type="checkbox" ref={refCheck} onChange={handleChecked} checked={isChecked} />
+     <input type="checkbox" ref={refCheck} onChange={handleChecked}  />
     </>
   )
 })

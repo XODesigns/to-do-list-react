@@ -5,10 +5,10 @@ import Navigation from "./Navigation";
 import Checkbox from './Checkbox';
 
 
-const Input = forwardRef(({}, ref)=>{
+export default function Input() {
       const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([]);
-    const refCheck = useRef()
+    // const refCheck = useRef()
 
      function handleChange(event) {
     const newValue = event.target.value;
@@ -23,18 +23,22 @@ const Input = forwardRef(({}, ref)=>{
   }
 
   function handleKeyDown(e) {
+
     if (e.key === "Enter" && inputText.trim().length !== 0) {
+
       setItems((prev) => {
         return [...prev, {id:uuidv4(), item:inputText, completed:false}]
       });
-      setInputText("");
+      setInputText("")     
     }
   }
 
-    useEffect(()=>{
-    const checkbox = refCheck.current
-console.log(checkbox)
-  })
+  //   useEffect(()=>{
+
+  //   const checkbox = refCheck.current
+  //    console.log(checkbox)
+
+  // })
 
    return (
     <>
@@ -49,7 +53,7 @@ console.log(checkbox)
        <ul className="list-items-list">
         {items.map((todo) => (
           <div key={todo.id}>
-          <Checkbox ref={refCheck}/>
+      {/* <Checkbox ref={refCheck}/>     */}
           <TodoItems  todos={todo.item} toggleTodo={toggleTodo} />
         </div>
         ))}
@@ -59,6 +63,6 @@ console.log(checkbox)
             
     </>
   )
-})
 
-export default Input
+  
+}
