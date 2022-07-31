@@ -9,6 +9,7 @@ export default function TodoItems(props) {
       useEffect(()=>{
         
       const checkbox = refCheck.current.checked
+
      console.log(checkbox)
   })
 
