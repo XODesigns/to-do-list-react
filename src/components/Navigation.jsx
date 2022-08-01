@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 
 
 export default function Navigation(props) {
-
-
+    
   return (
     <div className="navigation">
-        
         {props.itemsLeft} items left
 
       <div className="filter">

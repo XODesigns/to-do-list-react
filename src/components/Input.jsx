@@ -2,13 +2,12 @@ import {useState, forwardRef, useEffect, useRef} from 'react'
 import TodoItems from "./TodoItems";
 import {v4 as uuidv4} from "uuid"
 import Navigation from "./Navigation";
-import Checkbox from './Checkbox';
 
 
 export default function Input() {
       const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([]);
-    // const refCheck = useRef()
+    const refCheck = useRef()
 
      function handleChange(event) {
     const newValue = event.target.value;
@@ -27,16 +26,17 @@ export default function Input() {
     if (e.key === "Enter" && inputText.trim().length !== 0) {
 
       setItems((prev) => {
-        return [...prev, {id:uuidv4(), item:inputText, completed:false}]
+        return [...prev, {id:uuidv4(), item:inputText}]
       });
       setInputText("")     
     }
   }
 
-  //   useEffect(()=>{
-
+  //     useEffect(()=>{
+  //       if(todo.id === id){
   //   const checkbox = refCheck.current
   //    console.log(checkbox)
+  //       }
 
   // })
 
@@ -53,8 +53,8 @@ export default function Input() {
        <ul className="list-items-list">
         {items.map((todo) => (
           <div key={todo.id}>
-      {/* <Checkbox ref={refCheck}/>     */}
-          <TodoItems  todos={todo.item} toggleTodo={toggleTodo} />
+          <TodoItems ref={refCheck} todos={todo.item} toggleTodo={toggleTodo}  />
+          {todo.id === todo.id  ? console.log(refCheck.current) : null}
         </div>
         ))}
         
@@ -64,5 +64,6 @@ export default function Input() {
     </>
   )
 
-  
+
+
 }
