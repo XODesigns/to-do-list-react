@@ -1,14 +1,21 @@
-import {useState, useRef, useEffect, forwardRef} from 'react'
+import {useState} from 'react'
 
 
-const TodoItems = forwardRef((props, refCheck) => {
+export default function TodoItems ({todos, removeTodo}) {
 
     const [isChecked, setChecked] = useState(false)
 
 
-      function handleChecked(e){
-    setChecked(!isChecked)
-  }
+      function handleChecked(){
+    setChecked(!isChecked) 
+    }
+
+    
+      function handleClicked(){
+    removeTodo(todos.key)
+    }
+
+
 
 let completedClass = ''
 
@@ -19,12 +26,12 @@ let completedClass = ''
 
   return (
     <li className={completedClass}>
-    <input type="checkbox" ref={refCheck} onChange={handleChecked}  />
-        {props.todos}
+    <input type="checkbox"  onChange={handleChecked} onClick={handleClicked} />
+        {todos.todos}
     </li>
 
   )
-})
+}
 
 
-export default  TodoItems
+
