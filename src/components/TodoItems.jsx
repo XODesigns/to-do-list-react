@@ -12,7 +12,7 @@ export default function TodoItems ({todos, removeTodo}) {
 
     
       function handleClicked(){
-    removeTodo(todos.key)
+    removeTodo(todos.id)
     }
 
 
@@ -27,7 +27,7 @@ let completedClass = ''
   return (
     <li className={completedClass}>
     <input type="checkbox"  onChange={handleChecked} onClick={handleClicked} />
-        {todos.todos}
+        {todos}
     </li>
 
   )
