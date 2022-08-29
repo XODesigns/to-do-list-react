@@ -1,10 +1,10 @@
 
-import Upperbackground from "./components/Upper-background";
+import Background from "./components/Background";
 
 function App() {
   return (
     <>
-    <Upperbackground />
+    <Background />
     </>
   );
 }

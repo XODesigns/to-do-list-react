@@ -1,27 +1,18 @@
 import {useState, forwardRef, useEffect, useRef} from 'react'
-import TodoItems from "./TodoItems";
 import {v4 as uuidv4} from "uuid"
 import Navigation from "./Navigation";
 
 
 
-
 export default function Input() {
-      const [inputText, setInputText] = useState("");
+    const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([]);
-    // const refCheck = useRef()
+    const [checked, setChecked] = useState([])
 
-     function handleChange(event) {
+
+    function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
-  }
-
-
-   const removeTodo = (id) =>{
-    const newItems = [...items]
-   newItems.splice(id, 1)
-    setItems(newItems)
-
   }
 
 
@@ -36,8 +27,23 @@ export default function Input() {
     }
   }
 
+  const handleCheck = (event) => {
+    let newValue = [...checked]
+    if(event.target.checked){
+      newValue = [...checked, event.target.value]
+    } else {
+      newValue.splice(checked.indexOf(event.target.value), 1)
+    }
+    setChecked(newValue)
+  }
 
-  console.log(items)
+  const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
+  let isRemoved = checked.length ?  items.length - checked.length : items.length
+
+  const clearCompleted = (item) => {
+    checked.splice(checked.indexOf(item), 1)
+    setChecked("")
+  }
 
    return (
     <>
@@ -49,13 +55,16 @@ export default function Input() {
         value={inputText}
       />
 
-       <ul className="list-items-list">
+       <div className="list-items-list">
         {items.map((todo) => (
-          <TodoItems  key={todo.id} todos={todo.item} removeTodo={removeTodo}/>
+          <div className='list-items' key={todo.id} >
+          <input type="checkbox" onChange={handleCheck} value={todo.item} />
+          <span className={isChecked(todo.item)}>{todo.item}</span>
+          </div> 
         ))}
         
-         <Navigation itemsLeft={items.length} />
-      </ul>
+         <Navigation itemsLeft={isRemoved} clear={clearCompleted} />
+      </div>
             
     </>
   )
