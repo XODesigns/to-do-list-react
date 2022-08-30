@@ -27,12 +27,14 @@ export default function Input() {
     }
   }
 
-  const handleCheck = (event) => {
+  
+
+  const handleCheck = (event) => {  
     let newValue = [...checked]
     if(event.target.checked){
-      newValue = [...checked, event.target.value]
-    } else {
-      newValue.splice(checked.indexOf(event.target.value), 1)
+      newValue = [...checked, {id:uuidv4(), item:event.target.value}]
+    }else {
+      newValue.splice(checked.indexOf(event.target.value), 1);
     }
     setChecked(newValue)
   }
@@ -40,10 +42,10 @@ export default function Input() {
   const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
   let isRemoved = checked.length ?  items.length - checked.length : items.length
 
-  const clearCompleted = (item) => {
-    checked.splice(checked.indexOf(item), 1)
-    setChecked("")
-  }
+  // const clearCompleted = () => {
+  //   checked.splice(checked.filter(item => item === items))
+  //   setChecked("")
+  // }
 
    return (
     <>
@@ -51,7 +53,7 @@ export default function Input() {
         type="text"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="Create a new todo.."
+        placeholder="Create a new todo.." 
         value={inputText}
       />
 
@@ -59,11 +61,14 @@ export default function Input() {
         {items.map((todo) => (
           <div className='list-items' key={todo.id} >
           <input type="checkbox" onChange={handleCheck} value={todo.item} />
-          <span className={isChecked(todo.item)}>{todo.item}</span>
+          <span className={isChecked(todo.id)}>{todo.item}</span>
           </div> 
         ))}
         
-         <Navigation itemsLeft={isRemoved} clear={clearCompleted} />
+         <Navigation itemsLeft={isRemoved} 
+        //  clear={clearCompleted} 
+
+         />
       </div>
             
     </>
