@@ -32,7 +32,7 @@ export default function Input() {
   const handleCheck = (event) => {  
     let newValue = [...checked]
     if(event.target.checked){
-      newValue = [...checked, {id:uuidv4(), item:event.target.value}]
+      newValue = [...checked, {item:event.target.value}]
     }else {
       newValue.splice(checked.indexOf(event.target.value), 1);
     }
@@ -42,10 +42,17 @@ export default function Input() {
   const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
   let isRemoved = checked.length ?  items.length - checked.length : items.length
 
-  // const clearCompleted = () => {
-  //   checked.splice(checked.filter(item => item === items))
-  //   setChecked("")
-  // }
+  const clearCompleted = () => {
+    // checked.splice(checked.filter(item => item === items))
+    // setChecked("")
+  checked.forEach((el)=>{
+    items.forEach((val)=>{
+if(el.item === val.item){
+  console.log(val)
+}
+    })
+   })
+  }
 
    return (
     <>
@@ -61,12 +68,12 @@ export default function Input() {
         {items.map((todo) => (
           <div className='list-items' key={todo.id} >
           <input type="checkbox" onChange={handleCheck} value={todo.item} />
-          <span className={isChecked(todo.id)}>{todo.item}</span>
+          <span className={isChecked(todo.item)}>{todo.item}</span>
           </div> 
         ))}
         
          <Navigation itemsLeft={isRemoved} 
-        //  clear={clearCompleted} 
+         clear={clearCompleted} 
 
          />
       </div>
