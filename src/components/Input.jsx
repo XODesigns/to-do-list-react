@@ -30,9 +30,9 @@ export default function Input() {
   
 
   const handleCheck = (event) => {  
-    let newValue = [...checked]
+    let newValue = [...items]
     if(event.target.checked){
-      newValue = [...checked, {item:event.target.value}]
+      newValue = [...checked, event.target.value]
     }else {
       newValue.splice(checked.indexOf(event.target.value), 1);
     }
@@ -42,16 +42,10 @@ export default function Input() {
   const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
   let isRemoved = checked.length ?  items.length - checked.length : items.length
 
+
+
   const clearCompleted = () => {
-    // checked.splice(checked.filter(item => item === items))
-    // setChecked("")
-  checked.forEach((el)=>{
-    items.forEach((val)=>{
-if(el.item === val.item){
-  console.log(val)
-}
-    })
-   })
+
   }
 
    return (
@@ -67,7 +61,7 @@ if(el.item === val.item){
        <div className="list-items-list">
         {items.map((todo) => (
           <div className='list-items' key={todo.id} >
-          <input type="checkbox" onChange={handleCheck} value={todo.item} />
+          <input type="checkbox" checked onChange={handleCheck} value={todo.item} />
           <span className={isChecked(todo.item)}>{todo.item}</span>
           </div> 
         ))}
