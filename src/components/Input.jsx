@@ -42,10 +42,18 @@ export default function Input() {
   const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
   let isRemoved = checked.length ?  items.length - checked.length : items.length
 
-  // const clearCompleted = () => {
-  //   checked.splice(checked.filter(item => item === items))
-  //   setChecked("")
-  // }
+  const clearCompleted = () => {
+    const newTodos = [...items]
+    // const result = newTodos.filter(items.includes(checked))
+    //  const result = newTodos.find(item => item === checked.item)
+    if(checked){
+      console.log(checked)
+    }
+    // console.log(result)
+    // newTodos.splice(checked.item === items.item)
+    setItems(newTodos)
+  }
+
 
    return (
     <>
@@ -61,12 +69,12 @@ export default function Input() {
         {items.map((todo) => (
           <div className='list-items' key={todo.id} >
           <input type="checkbox" onChange={handleCheck} value={todo.item} />
-          <span className={isChecked(todo.id)}>{todo.item}</span>
+          <span className={isChecked(items)}>{todo.item}</span>
           </div> 
         ))}
         
          <Navigation itemsLeft={isRemoved} 
-        //  clear={clearCompleted} 
+         clear={clearCompleted} 
 
          />
       </div>
