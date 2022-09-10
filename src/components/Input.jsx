@@ -7,7 +7,8 @@ import Navigation from "./Navigation";
 export default function Input() {
     const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([]);
-    const [checked, setChecked] = useState([])
+    const [completedTaskCount, setCompletedTaskCount] = useState(0)
+    // const [checked, setChecked] = useState([])
 
 
     function handleChange(event) {
@@ -21,32 +22,31 @@ export default function Input() {
     if (e.key === "Enter" && inputText.trim().length !== 0) {
 
       setItems((prev) => {
-        return [...prev, {id:uuidv4(), item:inputText}]
+        return [...prev, {id:uuidv4(), task:inputText, complete:false}]
       });
       setInputText("")     
     }
   }
 
-  
+  const handleComplete = (id) => {
+    let list = items.map((task) => {
+      let item = {}
+      if (task.id === id) {
+        if (!task.complete){
+          setCompletedTaskCount(completedTaskCount + 1)
+        } else {
+          setCompletedTaskCount(completedTaskCount - 1)
+        }
 
-  const handleCheck = (event) => {  
-    let newValue = [...items]
-    if(event.target.checked){
-      newValue = [...checked, event.target.value]
-    }else {
-      newValue.splice(checked.indexOf(event.target.value), 1);
-    }
-    setChecked(newValue)
+        item = {...task, complete: !task.complete }
+      } else item = {...task}
+
+      return item
+    })
+    setItems(list)
   }
 
-  const isChecked = (item) => checked.includes(item) ? "checked-item" : "not-Checked"
-  let isRemoved = checked.length ?  items.length - checked.length : items.length
-
-
-
-  const clearCompleted = () => {
-
-  }
+let listCount = items.length - completedTaskCount
 
    return (
     <>
@@ -60,14 +60,18 @@ export default function Input() {
 
        <div className="list-items-list">
         {items.map((todo) => (
-          <div className='list-items' key={todo.id} >
-          <input type="checkbox"  onChange={handleCheck} value={todo.item} />
-          <span className={isChecked(todo.item)}>{todo.item}</span>
+          <div className={'list-items'} key={todo.id} 
+          complete={todo.complete} 
+          >
+
+          <input type="checkbox" onChange={()=> handleComplete(todo.id)} />
+          <span className={ todo.complete ? "checked-item" : "not-checked-item"}>{todo.task}</span>
+
           </div> 
         ))}
         
-         <Navigation itemsLeft={isRemoved} 
-         clear={clearCompleted} 
+         <Navigation itemsLeft={listCount} 
+ 
 
          />
       </div>
