@@ -61,7 +61,7 @@ export default function Input() {
        <div className="list-items-list">
         {items.map((todo) => (
           <div className='list-items' key={todo.id} >
-          <input type="checkbox" checked onChange={handleCheck} value={todo.item} />
+          <input type="checkbox"  onChange={handleCheck} value={todo.item} />
           <span className={isChecked(todo.item)}>{todo.item}</span>
           </div> 
         ))}
