@@ -1,6 +1,6 @@
 import {useState, forwardRef, useEffect, useRef} from 'react'
 import {v4 as uuidv4} from "uuid"
-import Navigation from "./Navigation";
+// import Navigation from "./Navigation";
 
 
 
@@ -8,7 +8,6 @@ export default function Input() {
     const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([]);
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
-    // const [checked, setChecked] = useState([])
 
 
     function handleChange(event) {
@@ -46,7 +45,25 @@ export default function Input() {
     setItems(list)
   }
 
+  function handleClear(){
+   const newTodos = items.filter(todo => !todo.complete)
+   setItems(newTodos)
+   setCompletedTaskCount(0)
+  }
+
+  function handleAll(){
+  // const AllTodos = items.filter(todo => todo)
+  // setItems(AllTodos)
+  }
+  
+  function handleActive(){
+   const ActiveTodos = items.filter(todo => !todo.complete)
+   setItems(ActiveTodos)
+  }
+ 
+
 let listCount = items.length - completedTaskCount
+
 
    return (
     <>
@@ -70,10 +87,17 @@ let listCount = items.length - completedTaskCount
           </div> 
         ))}
         
-         <Navigation itemsLeft={listCount} 
- 
+        
+          <div className="navigation">
+        {listCount} items left
 
-         />
+      <div className="filter">
+        <button onClick={handleAll}>All</button>
+        <button onClick={handleActive}>Active</button>
+        <button>Completed</button>
+      </div>
+      <button className="clear" onClick={handleClear}>Clear Completed</button>
+    </div>
       </div>
             
     </>

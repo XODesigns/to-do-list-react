@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 
 
-export default function Navigation({itemsLeft, clear, item}) {
+export default function Navigation({itemsLeft, handleClear, todo}) {
 
   function handleRemove(){
-      clear(item)
+      handleClear(todo.id)
   }
     
   return (
