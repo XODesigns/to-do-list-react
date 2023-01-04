@@ -1,11 +1,11 @@
 
-import Background from "./components/Background";
+import Form from "./components/Form"
 
 function App() {
   return (
-    <>
-    <Background />
-    </>
+    <div className="todo-background">
+    <Form />
+    </div>
   );
 }
 

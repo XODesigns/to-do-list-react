@@ -8,7 +8,7 @@ export default function Header() {
 
 
   return (
-    <div className="todoContainer">
+    <div className="todo-container">
       <h1>Todo</h1>
       <img src={Sun} />
       <Input />

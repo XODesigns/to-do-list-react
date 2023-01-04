@@ -1,4 +1,4 @@
-import {useState, forwardRef, useEffect, useRef} from 'react'
+import {useState} from 'react'
 import {v4 as uuidv4} from "uuid"
 // import Navigation from "./Navigation";
 
@@ -57,12 +57,24 @@ export default function Input() {
   }
   
   function handleActive(){
-   const ActiveTodos = items.filter(todo => !todo.complete)
-   setItems(ActiveTodos)
+    const ActiveTodos = [...items]
+   const list = ActiveTodos.filter(todo => !todo.complete)
+   setItems(list)
+   console.log(list.length)
   }
+
+  const handleChecked = (evt) =>{
+    if(evt.target.value){
+      setCompletedTaskCount(completedTaskCount - 1)
+    } else {
+      setCompletedTaskCount(completedTaskCount + 1)
+    }
+    
+  }
+
  
 
-let listCount = items.length - completedTaskCount
+let listCount = items.filter(todo => !todo.complete)
 
 
    return (
@@ -81,7 +93,7 @@ let listCount = items.length - completedTaskCount
           complete={todo.complete} 
           >
 
-          <input type="checkbox" onChange={()=> handleComplete(todo.id)} />
+          <input type="checkbox" onChange={()=> handleComplete(todo.id)} onClick={handleChecked} value={todo.task}/>
           <span className={ todo.complete ? "checked-item" : "not-checked-item"}>{todo.task}</span>
 
           </div> 
@@ -89,7 +101,7 @@ let listCount = items.length - completedTaskCount
         
         
           <div className="navigation">
-        {listCount} items left
+        {listCount.length} items left
 
       <div className="filter">
         <button onClick={handleAll}>All</button>
