@@ -1,13 +1,21 @@
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import {v4 as uuidv4} from "uuid"
 // import Navigation from "./Navigation";
 
 
 
-export default function Input() {
+export default function Input({setTheme, theme}) {
     const [inputText, setInputText] = useState("");
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([
+      {id:uuidv4(),task: "Complete online JavaScript course", complete:true},
+      {id:uuidv4(),task: "Jog around the park 3x", complete:false},
+      {id:uuidv4(),task: "10 minutes meditation", complete:false},
+      {id:uuidv4(),task: "Read for 1 hour", complete:false},
+      {id:uuidv4(),task: "Pick up groceries", complete:false},
+      {id:uuidv4(),task: "Complete Todo App on Frontend Mentor", complete:false}
+    ]);
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
+    const [checked, setChecked] = useState(false)
 
 
     function handleChange(event) {
@@ -52,12 +60,13 @@ export default function Input() {
   }
 
   function handleAll(){
+    const ActiveTodos = [...items]
   // const AllTodos = items.filter(todo => todo)
-  // setItems(AllTodos)
+  setItems(ActiveTodos)
   }
   
   function handleActive(){
-    const ActiveTodos = [...items]
+  const ActiveTodos = [...items]
    const list = ActiveTodos.filter(todo => !todo.complete)
    setItems(list)
    console.log(list.length)
@@ -72,6 +81,16 @@ export default function Input() {
     
   }
 
+  const handleViewComplete = () =>{
+    const completeTodos = [...items]
+   const list = completeTodos.filter(todo => todo.complete)
+   setItems(list)
+   console.log(list.length)
+  }
+
+
+
+
  
 
 let listCount = items.filter(todo => !todo.complete)
@@ -79,6 +98,9 @@ let listCount = items.filter(todo => !todo.complete)
 
    return (
     <>
+
+      <div className={!theme ? 'text-input dark-theme' : 'text-input light-theme'}>
+    <span className={!theme ? 'input-circle dark-theme' : 'input-circle light-theme'}></span>
      <input
         type="text"
         onChange={handleChange}
@@ -86,15 +108,18 @@ let listCount = items.filter(todo => !todo.complete)
         placeholder="Create a new todo.." 
         value={inputText}
       />
+      </div>
 
-       <div className="list-items-list">
+       <div className={!theme ? "list-items-list dark-theme" : "list-items-list light-theme" }>
         {items.map((todo) => (
-          <div className={'list-items'} key={todo.id} 
+          <div className={!theme ? 'list-items dark-theme' : 'list-items light-theme'} 
+          key={todo.id} 
           complete={todo.complete} 
+          draggable
           >
 
-          <input type="checkbox" onChange={()=> handleComplete(todo.id)} onClick={handleChecked} value={todo.task}/>
-          <span className={ todo.complete ? "checked-item" : "not-checked-item"}>{todo.task}</span>
+          <input type="checkbox" onChange={()=> handleComplete(todo.id)} onClick={handleChecked} value={todo.task} checked={todo.complete || todo.complete ? !checked : null} />
+          <span className={` ${todo.complete || todo.complete ? "checked-item" : "not-checked-item"} ${!theme ? "dark-theme" : "light-theme" }`}>{todo.task}</span>
 
           </div> 
         ))}
@@ -106,7 +131,7 @@ let listCount = items.filter(todo => !todo.complete)
       <div className="filter">
         <button onClick={handleAll}>All</button>
         <button onClick={handleActive}>Active</button>
-        <button>Completed</button>
+        <button onClick={handleViewComplete}>Completed</button>
       </div>
       <button className="clear" onClick={handleClear}>Clear Completed</button>
     </div>
