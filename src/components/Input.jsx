@@ -1,5 +1,7 @@
 import {useState, useRef} from 'react'
 import {v4 as uuidv4} from "uuid"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ListItems from './ListItems';
 // import Navigation from "./Navigation";
 
 
@@ -16,6 +18,8 @@ export default function Input({setTheme, theme}) {
     ]);
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
     const [checked, setChecked] = useState(false)
+    const [active, setActive] = useState(false)
+   
 
 
     function handleChange(event) {
@@ -67,8 +71,9 @@ export default function Input({setTheme, theme}) {
   
   function handleActive(){
   const ActiveTodos = [...items]
-   const list = ActiveTodos.filter(todo => !todo.complete)
-   setItems(list)
+   const list = ActiveTodos.filter(todo => todo.complete)
+   setActive(!active)
+  //  setItems(active)
    console.log(list.length)
   }
 
@@ -88,7 +93,9 @@ export default function Input({setTheme, theme}) {
    console.log(list.length)
   }
 
-
+  const deleteTodo = (id) => {
+    setItems(items.filter((item) => item.id !== id))
+  }
 
 
  
@@ -110,20 +117,37 @@ let listCount = items.filter(todo => !todo.complete)
       />
       </div>
 
+      
        <div className={!theme ? "list-items-list dark-theme" : "list-items-list light-theme" }>
-        {items.map((todo) => (
-          <div className={!theme ? 'list-items dark-theme' : 'list-items light-theme'} 
-          key={todo.id} 
-          complete={todo.complete} 
-          draggable
-          >
 
-          <input type="checkbox" onChange={()=> handleComplete(todo.id)} onClick={handleChecked} value={todo.task} checked={todo.complete || todo.complete ? !checked : null} />
-          <span className={` ${todo.complete || todo.complete ? "checked-item" : "not-checked-item"} ${!theme ? "dark-theme" : "light-theme" }`}>{todo.task}</span>
+       <DragDropContext>
+       <Droppable droppableId="characters">
 
-          </div> 
-        ))}
-        
+       {(provided) => (
+
+        <ul {...provided.droppableProps} ref={provided.innerRef}>
+
+       <ListItems 
+       DragDropContext={DragDropContext} 
+       Droppable={Droppable} 
+       Draggable={Draggable}  
+       handleComplete={handleComplete}
+       handleChecked={handleChecked}
+       checked={checked}
+       items={items}
+       setItems={setItems}
+      //  display={display}
+      //  setDisplay={setDisplay}
+       theme={theme}
+       deleteTodo={deleteTodo}
+       /> 
+
+       </ul> 
+       )}
+
+       
+        </Droppable>
+        </DragDropContext>
         
           <div className="navigation">
         {listCount.length} items left
