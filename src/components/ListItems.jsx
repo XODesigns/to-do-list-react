@@ -1,8 +1,8 @@
 import {useState} from 'react'
 
 function ListItems({
-    DragDropContext, 
-    Droppable, 
+    // DragDropContext, 
+    // Droppable, 
     Draggable,
     handleComplete, 
     handleChecked,
@@ -20,7 +20,15 @@ function ListItems({
   return (
         <>
 
-        {items.map((todo) => (
+        {items.map((todo, index) => (
+
+          <Draggable 
+          key={todo.id} 
+          draggableId ={todo.id}
+          index={index}
+          >
+          
+          {(provided, snapshot) => (
 
             <li  onMouseEnter={()=>{
                 if(todo.id){
@@ -32,6 +40,10 @@ function ListItems({
                     setDisplay(0)
                     }
               }}
+
+              {...provided.draggableProps}
+              ref={provided.innerRef}
+              {...provided.dragHandleProps}
               
               >
 
@@ -50,8 +62,11 @@ function ListItems({
           </span>
           </div> 
           </li>
-        ))}
 
+          )}
+          </Draggable>
+        ))}
+       
         </>
   )
 }

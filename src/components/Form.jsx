@@ -5,6 +5,7 @@ import Moon from "../images/icon-moon.svg"
 
 import Input from "./Input"
 
+
 export default function Header({theme, setTheme}) {
 
 
@@ -17,7 +18,7 @@ export default function Header({theme, setTheme}) {
       <h1>Todo</h1>
       <img alt="theme-toggle" src={!theme ? Sun : Moon} onClick={handleTheme} className="theme-toggle" />
       <Input setTheme={setTheme} theme={theme} />
-          
+      
     </div>
   );
 }
