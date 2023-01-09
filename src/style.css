@@ -155,7 +155,9 @@ li:first-child{
 }
 
 .clear-me{
- margin: 0 1rem;
+ /* margin: 0 1rem; */
+color:var(--list-items);
+cursor: pointer;
 }
 
 
@@ -164,7 +166,7 @@ input[type="checkbox"]{
   margin:0 1rem;
   appearance: none;
   border-radius: 50%;
-  border: 1px solid var(--border-list);
+  border: 1px solid var(--very-dark-gray-blue);
   height: 1.3rem;
   width: 1.3rem;
   /* transform: translateY(0.3rem); */

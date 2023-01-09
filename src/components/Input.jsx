@@ -1,22 +1,18 @@
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import {v4 as uuidv4} from "uuid"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ListItems from './ListItems';
 import Footer from './Footer';
 // import Navigation from "./Navigation";
 
+import{db} from './firebase'
+import {query, collection, onSnapshot, querySnapshot, updateDoc, doc, addDoc, deleteDoc} from 'firebase/firestore'
+
 
 
 export default function Input({setTheme, theme}) {
     const [inputText, setInputText] = useState("");
-    const [items, setItems] = useState([
-      {id:uuidv4(),task: "Complete online JavaScript course", complete:true},
-      {id:uuidv4(),task: "Jog around the park 3x", complete:false},
-      {id:uuidv4(),task: "10 minutes meditation", complete:false},
-      {id:uuidv4(),task: "Read for 1 hour", complete:false},
-      {id:uuidv4(),task: "Pick up groceries", complete:false},
-      {id:uuidv4(),task: "Complete Todo App on Frontend Mentor", complete:false}
-    ]);
+    const [items, setItems] = useState([]);
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
     const [checked, setChecked] = useState(false)
     const [active, setActive] = useState([])
@@ -25,23 +21,13 @@ export default function Input({setTheme, theme}) {
 
 
     
-    function handleChange(event) {
-    const newValue = event.target.value;
+    function handleChange(evt) {
+    const newValue = evt.target.value;
     setInputText(newValue);
   }
 
 
-  function handleKeyDown(e) {
-
-    if (e.key === "Enter" && inputText.trim().length !== 0) {
-
-      setItems((prev) => {
-        return [...prev, {id:uuidv4(), task:inputText, complete:false}]
-      });
-      setInputText("") 
-      setAll([...items, {id:uuidv4(), task:inputText, complete:false}]) 
-    }
-  }
+ 
 
   const handleComplete = (id) => {
     let list = items.map((task) => {
@@ -97,9 +83,7 @@ export default function Input({setTheme, theme}) {
   setCompleted(list)
   }
 
-  const deleteTodo = (id) => {
-    setItems(items.filter((item) => item.id !== id))
-  }
+ 
 
   const handleOnDragEnd = (result) =>{
     if (!result.destination) return;
@@ -114,8 +98,50 @@ export default function Input({setTheme, theme}) {
 
  
 
-let listCount = items.filter(todo => !todo.complete)
+  let listCount = items.filter(todo => !todo.complete)
 
+
+//Create todo
+const handleKeyDown = async (evt) => {
+  // evt.preventDefault(evt)
+
+  if (evt.key === "Enter" && inputText.trim().length !== 0) {
+
+    await addDoc(collection(db, 'todos'), {
+      text:inputText,
+      complete:false,
+    })
+    setInputText("") 
+    // setAll([...items, {id:uuidv4(), task:inputText, complete:false}]) 
+  }
+}
+
+//Read todo from firebase
+useEffect(()=>{
+const q = query(collection(db,'todos'))
+const unsubscribe = onSnapshot(q, (querySnapshot)=>{
+let todosArr = []
+  querySnapshot.forEach((doc) => {
+    todosArr.push({...doc.data(), id: doc.id})
+  })
+  setItems(todosArr)
+})
+return () => unsubscribe()
+},[])
+
+//Update todo in firebase
+const toggleComplete = async (todo) => {
+  await updateDoc(doc(db, 'todos', todo.id),{
+    complete:!todo.complete
+  })
+}
+
+//Delete todo
+const deleteTodo = async (id) => {
+  await deleteDoc(doc(db, 'todos', id ), {
+  })
+  // setItems(items.filter((item) => item.id !== id))
+}
 
    return (
     <>
@@ -142,20 +168,19 @@ let listCount = items.filter(todo => !todo.complete)
         <ul {...provided.droppableProps} ref={provided.innerRef}>
 
        <ListItems 
-      //  DragDropContext={DragDropContext} 
-      //  Droppable={Droppable} 
        Draggable={Draggable}  
        handleComplete={handleComplete}
        handleChecked={handleChecked}
        checked={checked}
        items={items}
        setItems={setItems}
-      //  display={display}
-      //  setDisplay={setDisplay}
+ 
        theme={theme}
        deleteTodo={deleteTodo}
+       toggleComplete={toggleComplete}
        /> 
        {provided.placeholder}
+      
        </ul> 
        )}
 

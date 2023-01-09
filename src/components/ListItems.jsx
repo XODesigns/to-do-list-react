@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import {TfiClose} from 'react-icons/tfi'
 
 function ListItems({
     // DragDropContext, 
@@ -11,9 +12,11 @@ function ListItems({
     setItems,
     theme,
     deleteTodo,
+    toggleComplete
 }) {
 
     const [display, setDisplay] = useState(0)
+
 
 
 
@@ -54,11 +57,11 @@ function ListItems({
 
           <div className='items'
           >
-          <input type="checkbox" onChange={()=> handleComplete(todo.id)} onClick={handleChecked} value={todo.task} checked={todo.complete || todo.complete ? !checked : null} />
-          <span className={` ${todo.complete || todo.complete ? "checked-item" : "not-checked-item"} ${!theme ? "dark-theme" : "light-theme" }`}>{todo.task}</span>
+          <input type="checkbox" onChange={()=>toggleComplete(todo)} onClick={handleChecked} value={todo.task} checked={todo.complete || todo.complete ? !checked : null} />
+          <span onClick={()=>toggleComplete(todo)} className={` ${todo.complete || todo.complete ? "checked-item" : "not-checked-item"} ${!theme ? "dark-theme" : "light-theme" }`}>{todo.text}</span>
           </div>
           <span onClick={()=> deleteTodo(todo.id)}>
-          {display === todo.id && <p className='clear-me'><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" margin="0" viewBox="0 0 25 25" fill="none" stroke="var(--border-list)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="25" y1="6" x2="6" y2="25"></line><line x1="6" y1="6" x2="25" y2="25"></line></svg></p>}
+          {display === todo.id && <p className='clear-me'><TfiClose /></p>}
           </span>
           </div> 
           </li>
