@@ -142,16 +142,13 @@ let listCount = items.filter(todo => !todo.complete)
         <ul {...provided.droppableProps} ref={provided.innerRef}>
 
        <ListItems 
-      //  DragDropContext={DragDropContext} 
-      //  Droppable={Droppable} 
+
        Draggable={Draggable}  
        handleComplete={handleComplete}
        handleChecked={handleChecked}
        checked={checked}
        items={items}
        setItems={setItems}
-      //  display={display}
-      //  setDisplay={setDisplay}
        theme={theme}
        deleteTodo={deleteTodo}
        /> 
