@@ -103,8 +103,6 @@ export default function Input({setTheme, theme}) {
 
   const handleOnDragEnd = (result) =>{
     if (!result.destination) return;
-    // console.log(result)
-    // const newItems = Array.from(items)
     const newItems = [...items]
     const [reorderedItem] = newItems.splice(result.source.index, 1)
     newItems.splice(result.destination.index, 0, reorderedItem)

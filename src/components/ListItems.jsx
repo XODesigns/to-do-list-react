@@ -1,8 +1,6 @@
 import {useState} from 'react'
 
 function ListItems({
-    // DragDropContext, 
-    // Droppable, 
     Draggable,
     handleComplete, 
     handleChecked,
