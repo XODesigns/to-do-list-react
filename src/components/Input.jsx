@@ -91,7 +91,7 @@ export default function Input({setTheme, theme}) {
     setIsComplete(!isComplete)
 
 
-  if(!isComplete){
+  if(isComplete){
     setItems(active)
   } else {
     setActive(activeList)
@@ -112,10 +112,15 @@ export default function Input({setTheme, theme}) {
     setIsComplete(!isComplete)
     setIsActive(!isActive)
 
+
+    if(isActive){
+      setItems(completed)
+    } else {
   setActive(activeList)
   setCompleted(completeList)
   setAll(activeTodos)
   setItems(completeList)
+    }
   }
 
 
@@ -194,8 +199,8 @@ let listCount = items.filter(todo => !todo.complete)
         {listCount.length} items left
 
       <div className="filter">
-        <button className={isComplete ? 'all-items' :'active-items-link'} onClick={handleAll}>All</button>
-        <button className={isComplete ? 'active-items' : 'completed-items'} onClick={handleActive}>Active</button>
+        <button className={isComplete ? 'all-items' : 'active-items-link'} onClick={handleAll}>All</button>
+        <button className={isComplete ? 'active-active' : 'active-items'} onClick={handleActive}>Active</button>
         <button className={isComplete ? 'active-complete' : 'completed-items'} onClick={handleViewComplete}>Completed</button>
       </div>
       <button className="clear" onClick={handleClear}>Clear Completed</button>

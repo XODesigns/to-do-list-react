@@ -241,7 +241,7 @@ input[type="checkbox"]:hover{
   color:var(--list-items)
 }
 
-.active-complete{
+.active-complete, .active-active, .active-all{
  color: var(--active-links);
 }
 
