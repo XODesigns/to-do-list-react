@@ -242,6 +242,10 @@ input[type="checkbox"]:hover{
   color:var(--list-items)
 }
 
+.active-complete{
+ color: var(--active-links);
+}
+
 .checked-item{
 text-decoration: line-through;
 color: var(--strike-off)

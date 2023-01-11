@@ -22,6 +22,8 @@ export default function Input({setTheme, theme}) {
     const [active, setActive] = useState([])
     const [completed, setCompleted] = useState([])
     const [all, setAll] = useState([...items])
+    const [isActive, setIsActive] = useState(false)
+    const [isComplete, setIsComplete] = useState(false)
 
 
   
@@ -64,9 +66,11 @@ export default function Input({setTheme, theme}) {
   }
 
   function handleClear(){
-   const newTodos = items.filter(todo => !todo.complete)
+   const newTodos = all.filter(todo => !todo.complete)
    setItems(newTodos)
+   setAll(newTodos)
    setCompletedTaskCount(0)
+   setCompleted("")
   }
 
   function handleAll(){
@@ -75,12 +79,38 @@ export default function Input({setTheme, theme}) {
   }
   
   function handleActive(){
-   const ActiveTodos = [...all]
-   const activeList = ActiveTodos.filter(todo => !todo.complete)
-   const list = ActiveTodos.filter(todo => todo.complete)
-   setCompleted(list)
-   setItems(activeList)
-   console.log(list.length)
+  const activeTodos = [...items]
+
+  const activeList = activeTodos.filter(todo => !todo.complete)
+  const completeList = activeTodos.filter(todo => todo.complete)
+
+    setIsActive(!isActive)
+
+
+  if(!isComplete){
+    setItems(active)
+  } else {
+    setActive(activeList)
+    setCompleted(completeList)
+    setAll(activeTodos)
+    setItems(activeList)
+  }
+  }
+
+
+  const handleViewComplete = () =>{
+ 
+  const activeTodos = [...items]
+
+  const activeList = activeTodos.filter(todo => !todo.complete)
+  const completeList = activeTodos.filter(todo => todo.complete)
+  
+    setIsComplete(!isComplete)
+
+  setActive(activeList)
+  setCompleted(completeList)
+  setAll(activeTodos)
+  setItems(completeList)
   }
 
 
@@ -91,15 +121,6 @@ export default function Input({setTheme, theme}) {
       setCompletedTaskCount(completedTaskCount + 1)
     }
     
-  }
-
-  const handleViewComplete = () =>{
-  const completeTodos = [...all]
-  const completeList = completeTodos.filter(todo => todo.complete)
-  const list = completeTodos.filter(todo => !todo.complete)
-  setItems(completeList)
-  setCompleted(completeList)
-  setActive(list)
   }
 
   const deleteTodo = (id) => {
@@ -170,7 +191,7 @@ let listCount = items.filter(todo => !todo.complete)
       <div className="filter">
         <button className={all.task ? 'all-items' :" active-items-link"} onClick={handleAll}>All</button>
         <button className='active-items' onClick={handleActive}>Active</button>
-        <button className='completed-items' onClick={handleViewComplete}>Completed</button>
+        <button className={!isComplete && 'active-complete'} onClick={handleViewComplete}>Completed</button>
       </div>
       <button className="clear" onClick={handleClear}>Clear Completed</button>
     </div>
