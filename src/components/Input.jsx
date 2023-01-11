@@ -76,6 +76,9 @@ export default function Input({setTheme, theme}) {
   function handleAll(){
   const newAll = [...all]
   setItems(newAll)
+
+  setIsComplete(!isComplete)
+  setIsActive(!isActive)
   }
   
   function handleActive(){
@@ -85,6 +88,7 @@ export default function Input({setTheme, theme}) {
   const completeList = activeTodos.filter(todo => todo.complete)
 
     setIsActive(!isActive)
+    setIsComplete(!isComplete)
 
 
   if(!isComplete){
@@ -106,6 +110,7 @@ export default function Input({setTheme, theme}) {
   const completeList = activeTodos.filter(todo => todo.complete)
   
     setIsComplete(!isComplete)
+    setIsActive(!isActive)
 
   setActive(activeList)
   setCompleted(completeList)
@@ -189,9 +194,9 @@ let listCount = items.filter(todo => !todo.complete)
         {listCount.length} items left
 
       <div className="filter">
-        <button className={all.task ? 'all-items' :" active-items-link"} onClick={handleAll}>All</button>
-        <button className='active-items' onClick={handleActive}>Active</button>
-        <button className={!isComplete && 'active-complete'} onClick={handleViewComplete}>Completed</button>
+        <button className={isComplete ? 'all-items' :'active-items-link'} onClick={handleAll}>All</button>
+        <button className={isComplete ? 'active-items' : 'completed-items'} onClick={handleActive}>Active</button>
+        <button className={isComplete ? 'active-complete' : 'completed-items'} onClick={handleViewComplete}>Completed</button>
       </div>
       <button className="clear" onClick={handleClear}>Clear Completed</button>
     </div>

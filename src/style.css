@@ -220,7 +220,6 @@ input[type="checkbox"]:hover{
 .filter button{
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  color:var(--dark-gray-blue);
   font-weight: 700;
 }
 
@@ -244,6 +243,10 @@ input[type="checkbox"]:hover{
 
 .active-complete{
  color: var(--active-links);
+}
+
+.completed-items, .active-items, .all-items{
+  color:var(--dark-gray-blue);
 }
 
 .checked-item{
