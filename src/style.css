@@ -156,6 +156,7 @@ li:first-child{
 
 .clear-me{
  margin: 0 1rem;
+ cursor:pointer ;
 }
 
 

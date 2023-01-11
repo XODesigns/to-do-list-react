@@ -24,7 +24,7 @@ export default function Input({setTheme, theme}) {
     const [all, setAll] = useState([...items])
 
 
-    
+  
     function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
@@ -59,6 +59,8 @@ export default function Input({setTheme, theme}) {
       return item
     })
     setItems(list)
+    const newAll = [...all]
+    setAll(newAll)
   }
 
   function handleClear(){
@@ -68,17 +70,19 @@ export default function Input({setTheme, theme}) {
   }
 
   function handleAll(){
-  setItems(all)
+  const newAll = [...all]
+  setItems(newAll)
   }
   
   function handleActive(){
-   const ActiveTodos = [...items]
+   const ActiveTodos = [...all]
    const activeList = ActiveTodos.filter(todo => !todo.complete)
    const list = ActiveTodos.filter(todo => todo.complete)
-   setActive(list)
+   setCompleted(list)
    setItems(activeList)
    console.log(list.length)
   }
+
 
   const handleChecked = (evt) =>{
     if(evt.target.value){
@@ -90,15 +94,17 @@ export default function Input({setTheme, theme}) {
   }
 
   const handleViewComplete = () =>{
-  const completeTodos = [...items]
+  const completeTodos = [...all]
   const completeList = completeTodos.filter(todo => todo.complete)
   const list = completeTodos.filter(todo => !todo.complete)
   setItems(completeList)
-  setCompleted(list)
+  setCompleted(completeList)
+  setActive(list)
   }
 
   const deleteTodo = (id) => {
     setItems(items.filter((item) => item.id !== id))
+    setAll(items.filter((item) => item.id !== id))
   }
 
   const handleOnDragEnd = (result) =>{
@@ -110,7 +116,7 @@ export default function Input({setTheme, theme}) {
     setItems(newItems)
   }
 
- 
+//  const activeItems = items.filter(complete => complete === false)
 
 let listCount = items.filter(todo => !todo.complete)
 
