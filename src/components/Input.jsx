@@ -3,6 +3,7 @@ import {v4 as uuidv4} from "uuid"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ListItems from './ListItems';
 import Footer from './Footer';
+
 // import Navigation from "./Navigation";
 
 
@@ -22,14 +23,17 @@ export default function Input({setTheme, theme}) {
     const [active, setActive] = useState([])
     const [completed, setCompleted] = useState([])
     const [all, setAll] = useState([...items])
-    const [isActive, setIsActive] = useState(false)
-    const [isComplete, setIsComplete] = useState(false)
+    const [isActive, setIsActive] = useState("true")
+    const [isComplete, setIsComplete] = useState("true")
+    const [isAll, setIsAll] = useState("true")
 
 
   
     function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
+
+
   }
 
 
@@ -77,8 +81,10 @@ export default function Input({setTheme, theme}) {
   const newAll = [...all]
   setItems(newAll)
 
-  setIsComplete(!isComplete)
-  setIsActive(!isActive)
+    setIsActive("true")
+    setIsComplete("true")
+    setIsAll("true")
+
   }
   
   function handleActive(){
@@ -87,16 +93,20 @@ export default function Input({setTheme, theme}) {
   const activeList = activeTodos.filter(todo => !todo.complete)
   const completeList = activeTodos.filter(todo => todo.complete)
 
-    setIsActive(!isActive)
-    setIsComplete(!isComplete)
+    setIsActive("false")
+    setIsComplete("true")
+    setIsAll("false")
 
 
-  if(isComplete){
+  if(isActive === "false"){
+    setItems(active)
+    setActive(activeList)
+    setAll(activeTodos)
+  } else if(isComplete === "false") {
     setItems(active)
   } else {
     setActive(activeList)
     setCompleted(completeList)
-    setAll(activeTodos)
     setItems(activeList)
   }
   }
@@ -109,17 +119,21 @@ export default function Input({setTheme, theme}) {
   const activeList = activeTodos.filter(todo => !todo.complete)
   const completeList = activeTodos.filter(todo => todo.complete)
   
-    setIsComplete(!isComplete)
-    setIsActive(!isActive)
+  setIsActive("true")
+  setIsComplete("false")
+  setIsAll("false")
 
 
-    if(isActive){
+    if(isComplete === "false"){
       setItems(completed)
+      setCompleted(completeList)
+      setAll(activeTodos)
+    } else if (isActive === "false") {
+      setItems(completeList)
     } else {
-  setActive(activeList)
-  setCompleted(completeList)
-  setAll(activeTodos)
-  setItems(completeList)
+      setActive(activeList)
+      setCompleted(completeList)
+      setItems(completeList)
     }
   }
 
@@ -199,9 +213,9 @@ let listCount = items.filter(todo => !todo.complete)
         {listCount.length} items left
 
       <div className="filter">
-        <button className={isComplete ? 'all-items' : 'active-items-link'} onClick={handleAll}>All</button>
-        <button className={isComplete ? 'active-active' : 'active-items'} onClick={handleActive}>Active</button>
-        <button className={isComplete ? 'active-complete' : 'completed-items'} onClick={handleViewComplete}>Completed</button>
+        <button className={isAll === "false" ? 'all-items' : 'active-items-link'} onClick={handleAll}>All</button>
+        <button className={isActive === "false" ? 'active-active' : 'active-items'} onClick={handleActive}>Active</button>
+        <button className={isComplete === "false" ? 'active-complete' : 'completed-items'} onClick={handleViewComplete}>Completed</button>
       </div>
       <button className="clear" onClick={handleClear}>Clear Completed</button>
     </div>
