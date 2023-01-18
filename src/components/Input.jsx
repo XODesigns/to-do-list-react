@@ -161,7 +161,6 @@ export default function Input({setTheme, theme}) {
     setItems(newItems)
   }
 
-//  const activeItems = items.filter(complete => complete === false)
 
 let listCount = items.filter(todo => !todo.complete)
 
