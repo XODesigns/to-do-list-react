@@ -12,6 +12,8 @@ function ListItems({
     deleteTodo,
     category,
     setCategory,
+    all,
+    setAll,
 }) {
 
     const [display, setDisplay] = useState(0)

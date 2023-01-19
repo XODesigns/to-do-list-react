@@ -67,6 +67,11 @@ export default function Input({setTheme, theme}) {
     setItems(list)
     const newAll = [...all]
     setAll(newAll)
+
+    
+    
+      // const newAll = [...items]
+      // setAll(all)
   }
 
   function handleClear(){
@@ -144,6 +149,7 @@ export default function Input({setTheme, theme}) {
     } else {
       setCompletedTaskCount(completedTaskCount + 1)
     }
+
     
   }
 
@@ -199,6 +205,7 @@ let listCount = items.filter(todo => !todo.complete)
        setItems={setItems}
        theme={theme}
        deleteTodo={deleteTodo}
+       all={all}
        /> 
        {provided.placeholder}
        </ul> 
