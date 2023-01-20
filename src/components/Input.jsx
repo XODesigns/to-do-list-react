@@ -65,13 +65,9 @@ export default function Input({setTheme, theme}) {
       return item
     })
     setItems(list)
-    const newAll = [...all]
-    setAll(newAll)
+    // const newAll = [...items]
+    setAll(items)
 
-    
-    
-      // const newAll = [...items]
-      // setAll(all)
   }
 
   function handleClear(){
@@ -80,6 +76,8 @@ export default function Input({setTheme, theme}) {
    setAll(newTodos)
    setCompletedTaskCount(0)
    setCompleted("")
+
+   
   }
 
   function handleAll(){
@@ -89,6 +87,10 @@ export default function Input({setTheme, theme}) {
     setIsActive("true")
     setIsComplete("true")
     setIsAll("true")
+
+    // if(isComplete === "false"){
+    //   setAll([...completed, ...active])
+    // }
 
   }
   
@@ -101,6 +103,7 @@ export default function Input({setTheme, theme}) {
     setIsActive("false")
     setIsComplete("true")
     setIsAll("false")
+    setAll(items)
 
 
   if(isActive === "false"){
@@ -127,6 +130,7 @@ export default function Input({setTheme, theme}) {
   setIsActive("true")
   setIsComplete("false")
   setIsAll("false")
+  setAll(items)
 
 
     if(isComplete === "false"){

@@ -26,7 +26,7 @@ function ListItems({
       } else {
         setCategory("Completed")
       }
-      
+    
     }
 
   return (
