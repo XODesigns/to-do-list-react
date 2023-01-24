@@ -35,8 +35,7 @@ export default function Input({setTheme, theme}) {
     function handleChange(event) {
     const newValue = event.target.value;
     setInputText(newValue);
-
-
+  
   }
 
 
@@ -69,7 +68,7 @@ export default function Input({setTheme, theme}) {
     })
     setItems(list)
     // const newAll = [...items]
-    setAll(items)
+    setAll([...list])
 
   }
 
@@ -84,16 +83,17 @@ export default function Input({setTheme, theme}) {
   }
 
   function handleAll(){
-  const newAll = [...items]
-  setItems(newAll)
+    // const activeTodos = [...items]
 
-    setIsActive("true")
+   setIsActive("true")
     setIsComplete("true")
     setIsAll("true")
+    
+  setItems(all)
 
-    // if(isComplete === "false"){
-    //   setAll([...completed, ...active])
-    // }
+  if(isComplete === "false" || isActive === "false"){
+    setItems(all)
+  }
 
   }
   
@@ -106,13 +106,13 @@ export default function Input({setTheme, theme}) {
     setIsActive("false")
     setIsComplete("true")
     setIsAll("false")
-    setAll(items)
+    setAll(all)
 
 
   if(isActive === "false"){
     setItems(active)
     setActive(activeList)
-    setAll(activeTodos)
+    // setAll(activeTodos)
   } else if(isComplete === "false") {
     setItems(active)
   } else {
@@ -133,13 +133,13 @@ export default function Input({setTheme, theme}) {
   setIsActive("true")
   setIsComplete("false")
   setIsAll("false")
-  setAll(items)
+  setAll(all)
 
 
     if(isComplete === "false"){
       setItems(completed)
       setCompleted(completeList)
-      setAll(activeTodos)
+      // setAll(activeTodos)
     } else if (isActive === "false") {
       setItems(completeList)
     } else {

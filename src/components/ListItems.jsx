@@ -21,11 +21,11 @@ function ListItems({
     const clicked = () => {
       handleChecked()
 
-      if(items.complete){
-        setCategory("Active")
-      } else {
-        setCategory("Completed")
-      }
+      // if(items.complete){
+      //   setCategory("Active")
+      // } else {
+      //   setCategory("Completed")
+      // }
     
     }
 
