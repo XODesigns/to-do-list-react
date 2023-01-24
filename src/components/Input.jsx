@@ -28,6 +28,9 @@ export default function Input({setTheme, theme}) {
     const [isAll, setIsAll] = useState("true")
 
 
+
+
+
   
     function handleChange(event) {
     const newValue = event.target.value;
@@ -81,7 +84,7 @@ export default function Input({setTheme, theme}) {
   }
 
   function handleAll(){
-  const newAll = [...all]
+  const newAll = [...items]
   setItems(newAll)
 
     setIsActive("true")
@@ -173,6 +176,7 @@ export default function Input({setTheme, theme}) {
 
 
 let listCount = items.filter(todo => !todo.complete)
+
 
 
    return (

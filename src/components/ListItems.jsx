@@ -56,7 +56,7 @@ function ListItems({
               {...provided.draggableProps}
               ref={provided.innerRef}
               {...provided.dragHandleProps}
-              
+              // className={todo.complete || todo.complete ? "hide" : null}
               >
 
           <div className={!theme ? 'list-items dark-theme' : 'list-items light-theme'} 
