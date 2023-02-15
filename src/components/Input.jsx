@@ -98,55 +98,55 @@ export default function Input({setTheme, theme}) {
   }
   
   function handleActive(){
-  const activeTodos = [...items]
+  // const activeTodos = [...items]
 
-  const activeList = activeTodos.filter(todo => !todo.complete)
-  const completeList = activeTodos.filter(todo => todo.complete)
+  // const activeList = activeTodos.filter(todo => !todo.complete)
+  // const completeList = activeTodos.filter(todo => todo.complete)
 
     setIsActive("false")
-    setIsComplete("true")
-    setIsAll("false")
-    setAll(all)
+  //   setIsComplete("true")
+  //   setIsAll("false")
+  //   setAll(all)
 
 
-  if(isActive === "false"){
-    setItems(active)
-    setActive(activeList)
-    // setAll(activeTodos)
-  } else if(isComplete === "false") {
-    setItems(active)
-  } else {
-    setActive(activeList)
-    setCompleted(completeList)
-    setItems(activeList)
-  }
+  // if(isActive === "false"){
+  //   setItems(active)
+  //   setActive(activeList)
+  //   // setAll(activeTodos)
+  // } else if(isComplete === "false") {
+  //   setItems(active)
+  // } else {
+  //   setActive(activeList)
+  //   setCompleted(completeList)
+  //   setItems(activeList)
+  // }
   }
 
 
   const handleViewComplete = () =>{
  
-  const activeTodos = [...items]
+  // const activeTodos = [...items]
 
-  const activeList = activeTodos.filter(todo => !todo.complete)
-  const completeList = activeTodos.filter(todo => todo.complete)
+  // const activeList = activeTodos.filter(todo => !todo.complete)
+  // const completeList = activeTodos.filter(todo => todo.complete)
   
-  setIsActive("true")
+  // setIsActive("true")
   setIsComplete("false")
-  setIsAll("false")
-  setAll(all)
+  // setIsAll("false")
+  // setAll(all)
 
 
-    if(isComplete === "false"){
-      setItems(completed)
-      setCompleted(completeList)
-      // setAll(activeTodos)
-    } else if (isActive === "false") {
-      setItems(completeList)
-    } else {
-      setActive(activeList)
-      setCompleted(completeList)
-      setItems(completeList)
-    }
+  //   if(isComplete === "false"){
+  //     setItems(completed)
+  //     setCompleted(completeList)
+  //     // setAll(activeTodos)
+  //   } else if (isActive === "false") {
+  //     setItems(completeList)
+  //   } else {
+  //     setActive(activeList)
+  //     setCompleted(completeList)
+  //     setItems(completeList)
+  //   }
   }
 
 
@@ -214,6 +214,9 @@ let listCount = items.filter(todo => !todo.complete)
        theme={theme}
        deleteTodo={deleteTodo}
        all={all}
+       isActive={isActive}
+       isComplete={isComplete}
+       isAll={isAll}
        /> 
        {provided.placeholder}
        </ul> 

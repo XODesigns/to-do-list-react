@@ -14,6 +14,9 @@ function ListItems({
     setCategory,
     all,
     setAll,
+    isActive,
+    isComplete,
+    isAll
 }) {
 
     const [display, setDisplay] = useState(0)
@@ -56,7 +59,7 @@ function ListItems({
               {...provided.draggableProps}
               ref={provided.innerRef}
               {...provided.dragHandleProps}
-              // className={todo.complete || todo.complete ? "hide" : null}
+              className={`${todo.complete && isActive === "false" ? "hide" : null} ${!todo.complete && isComplete === "false" ? "hide" : null}`}
               >
 
           <div className={!theme ? 'list-items dark-theme' : 'list-items light-theme'} 
