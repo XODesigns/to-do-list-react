@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {TfiClose} from 'react-icons/tfi'
+import { isMobile } from 'react-device-detect'
 
 function ListItems({
     Draggable,
@@ -43,7 +44,8 @@ function ListItems({
             <li  onMouseEnter={()=>{
                 if(todo.id){
                 setDisplay(todo.id)
-                } 
+                }
+
               }}
               onMouseLeave={()=>{
                 if(todo.id){
@@ -76,7 +78,7 @@ function ListItems({
           <span className={` ${todo.complete || todo.complete ? "checked-item" : "not-checked-item"} ${!theme ? "dark-theme" : "light-theme" }`}>{todo.task}</span>
           </div>
           <span onClick={()=> deleteTodo(todo.id)}>
-          {display === todo.id && <p className='clear-me'><TfiClose /></p>}
+          {display === todo.id && <p className='clear-me'><TfiClose /></p>} 
           </span>
           </div> 
           </li>
