@@ -24,12 +24,7 @@ function ListItems({
     const clicked = () => {
       handleChecked()
 
-      // if(items.complete){
-      //   setCategory("Active")
-      // } else {
-      //   setCategory("Completed")
-      // }
-    
+  
     }
 
   return (
@@ -59,7 +54,9 @@ function ListItems({
               {...provided.draggableProps}
               ref={provided.innerRef}
               {...provided.dragHandleProps}
-              className={`${todo.complete && isActive === "false" ? "hide" : null} ${!todo.complete && isComplete === "false" ? "hide" : null}`}
+              className={`${todo.complete && isActive === "false" ? "hide" : "no-hide"} ${!todo.complete && isComplete === "false" ? "hide" : "no-hide"}
+              ${!todo.complete && isComplete === "false" ? "hide" : "no-hide"} ${todo.complete && isActive === "false" ? "hide" : "no-hide"}
+              `}
               >
 
           <div className={!theme ? 'list-items dark-theme' : 'list-items light-theme'} 
