@@ -11,16 +11,17 @@ import Footer from './Footer';
 export default function Input({setTheme, theme}) {
     const [inputText, setInputText] = useState("");
     const [items, setItems] = useState([
-      {id:uuidv4(),task: "Complete online JavaScript course", complete:true},
-      {id:uuidv4(),task: "Jog around the park 3x", complete:false},
-      {id:uuidv4(),task: "10 minutes meditation", complete:false},
-      {id:uuidv4(),task: "Read for 1 hour", complete:false},
-      {id:uuidv4(),task: "Pick up groceries", complete:false},
-      {id:uuidv4(),task: "Complete Todo App on Frontend Mentor", complete:false}
+      {id:uuidv4(),task: "Complete online JavaScript course", complete:+true},
+      {id:uuidv4(),task: "Jog around the park 3x", complete:+false},
+      {id:uuidv4(),task: "10 minutes meditation", complete:+false},
+      {id:uuidv4(),task: "Read for 1 hour", complete:+false},
+      {id:uuidv4(),task: "Pick up groceries", complete:+false},
+      {id:uuidv4(),task: "Complete Todo App on Frontend Mentor", complete:+false}
     ]);
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
-    const [checked, setChecked] = useState(false)
-    // const [active, setActive] = useState([])
+    // eslint-disable-next-line
+    const [checked, setChecked] = useState(+false) 
+    // eslint-disable-next-line
     const [completed, setCompleted] = useState([])
     const [all, setAll] = useState([...items])
     const [isActive, setIsActive] = useState("true")
@@ -44,10 +45,10 @@ export default function Input({setTheme, theme}) {
     if (e.key === "Enter" && inputText.trim().length !== 0) {
 
       setItems((prev) => {
-        return [...prev, {id:uuidv4(), task:inputText, complete:false}]
+        return [...prev, {id:uuidv4(), task:inputText, complete:+false}]
       });
       setInputText("") 
-      setAll([...items, {id:uuidv4(), task:inputText, complete:false}]) 
+      setAll([...items, {id:uuidv4(), task:inputText, complete:+false}]) 
     }
   }
 
